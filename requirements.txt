@@ -1,0 +1,7 @@
+autopep8==2.0.1
+build==0.10.0
+packaging==23.0
+pycodestyle==2.10.0
+pyproject_hooks==1.0.0
+-e git+https://github.com/RizwanAmjad/py-promises.git@857e26cddfe01e1a6939bff1a6a312ef2b25519f#egg=pypromises
+tomli==2.0.1
