@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pypromises"
+version = "0.0.1"
+authors = [
+  { name="Rizwan Amjad", email="rizwanamjadnov@gmail.com" },
+]
+description = """
+    Promises library that wraps thread to perform long tasks in parallel, using threads
+"""
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/RizwanAmjad/py-promises"
+"Bug Tracker" = "https://github.com/RizwanAmjad/py-promises/issues"
