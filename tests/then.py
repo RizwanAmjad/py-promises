@@ -15,5 +15,5 @@ def task_test(sec):
 promise_upload = Promise(task_uploading, 1)
 promise_testing = Promise(task_test, 0.5)
 
-promise_upload.then(lambda: print("Upload CB"))
-promise_testing.then(lambda: print("Testing CB"))
+promise_upload.then(lambda value: print(value))
+promise_testing.then(lambda value: print(value))

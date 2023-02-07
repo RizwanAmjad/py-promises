@@ -1,3 +1,4 @@
+from .fire_and_forget import fire_and_forget
 from threading import Thread
 from typing import Any, Callable, List
 
@@ -6,6 +7,7 @@ class Promise:
     def __init__(self, coroutine: Callable, *params: List[Any]):
         def coroutine_wrapper():
             self.returned_value = coroutine(*params)
+            return self.returned_value
 
         self.returned_value: Any = None
         self.coroutine: Callable = coroutine_wrapper
@@ -22,10 +24,11 @@ class Promise:
         return [promise.returned_value for promise in promises]
 
     def then(self, callback: Callable) -> None:
+        @fire_and_forget
         def cb():
-            self.coroutine()
-            callback()
-        Thread(target=cb).start()
+            value = self.coroutine()
+            callback(value)
+        cb()
 
     def to_thread(self) -> Thread:
         return Thread(target=self.coroutine)
