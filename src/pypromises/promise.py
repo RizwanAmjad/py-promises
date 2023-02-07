@@ -15,6 +15,11 @@ class Promise:
 
     @staticmethod
     def all(*promises: List["Promise"]):
+        """
+        Return the value from all the promises in given sequence
+        params:
+        - promises: List of Promises to resolve
+        """
         threads = [promise.to_thread() for promise in promises]
         # start all threads
         [thread.start() for thread in threads]
@@ -24,6 +29,14 @@ class Promise:
         return [promise.returned_value for promise in promises]
 
     def then(self, callback: Callable, error: Callable = lambda: None) -> None:
+        """
+        runs the function wrapped in the promise async, 
+        and calls the callback function passed in case of
+        promise resolved and runs the error function in case of error raised
+        params:
+        - callback: Callable (Run in case the promise is resolved)
+        - error: Callable (Runs in case the promise is rejected)
+        """
         @fire_and_forget
         def cb():
             try:
@@ -40,5 +53,8 @@ class Promise:
         return Thread(target=self.coroutine)
 
     def wait(self):
+        """
+        Awaits a promise, the lines next to this function call won't execute until execution of this promise completes
+        """
         self.to_thread().run()
         return self.returned_value
