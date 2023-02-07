@@ -23,11 +23,17 @@ class Promise:
 
         return [promise.returned_value for promise in promises]
 
-    def then(self, callback: Callable) -> None:
+    def then(self, callback: Callable, error: Callable = lambda: None) -> None:
         @fire_and_forget
         def cb():
-            value = self.coroutine()
-            callback(value)
+            try:
+                value = self.coroutine()
+                callback(value)
+            except Exception as ex:
+                if (error != None):
+                    error(ex)
+                else:
+                    raise ex
         cb()
 
     def to_thread(self) -> Thread:
